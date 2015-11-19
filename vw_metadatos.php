@@ -50,32 +50,39 @@ $(document).ready(function () {
 				switch ( this.name )
 				{
 				    case 'Zacatecas': 
-						    $( ".ojo, .fres, .rio, .jal, .tlal, .concha" ).addClass("tabla-opacity");
-						    $( ".zac" ).removeClass("tabla-opacity");
+						    $( ".J2, .J3, .J4, .J5, .J6, .J7" ).addClass("tabla-opacity");
+						    $( ".J1" ).removeClass("tabla-opacity");
+						    $( ".J1" ).addClass( "success" );
 						    break;
 				    case 'Ojocaliente': 
-						    $( ".zac, .fres, .rio, .jal, .tlal, .concha" ).addClass("tabla-opacity");
-						    $( ".ojo" ).removeClass("tabla-opacity");
+						    $( ".J1, .J3, .J4, .J5, .J6, .J7" ).addClass("tabla-opacity");
+						    $( ".J2" ).removeClass("tabla-opacity");
+						    $( ".J2" ).addClass( "success" );
 						    break;
 				    case 'Fresnillo': 
-						    $( ".ojo, .zac, .rio, .jal, .tlal, .concha" ).addClass("tabla-opacity");
-						    $( ".fres" ).removeClass("tabla-opacity");
+						    $( ".J1, .J2, .J4, .J5, .J6, .J7" ).addClass("tabla-opacity");
+						    $( ".J3" ).removeClass("tabla-opacity");
+						    $( ".J3" ).addClass( "success" );
 						    break;
 				    case 'Rio Grande': 
-						    $( ".ojo, .fres, .zac, .jal, .tlal, .concha" ).addClass("tabla-opacity");
-						    $( ".rio" ).removeClass("tabla-opacity");
+						    $( ".J1, .J2, .J3, .J5, .J6, .J7" ).addClass("tabla-opacity");
+						    $( ".J4" ).removeClass("tabla-opacity");
+						    $( ".J4" ).addClass( "success" );
 						    break;
 				    case 'Jalpa': 
-						    $( ".ojo, .fres, .rio, .zac, .tlal, .concha" ).addClass("tabla-opacity");
-						    $( ".jal" ).removeClass("tabla-opacity");
+						    $( ".J1, .J2, .J3, .J4, .J6, .J7" ).addClass("tabla-opacity");
+						    $( ".J5" ).removeClass("tabla-opacity");
+						    $( ".J5" ).addClass( "success" );
 						    break;
 				    case 'Tlaltenango': 
-						    $( ".ojo, .fres, .rio, .jal, .zac, .concha" ).addClass("tabla-opacity");
-						    $( ".tlal" ).removeClass("tabla-opacity");
+						    $( ".J1, .J2, .J3, .J4, .J5, .J7" ).addClass("tabla-opacity");
+						    $( ".J6" ).removeClass("tabla-opacity");
+						    $( ".J6" ).addClass( "success" );
 						    break;
 				    case 'Concepcion del Oro': 
-						    $( ".ojo, .fres, .rio, .jal, .tlal, .zac" ).addClass("tabla-opacity");
-						    $( ".concha" ).removeClass("tabla-opacity");
+						    $( ".J1, .J2, .J3, .J4, .J5, .J6" ).addClass("tabla-opacity");
+						    $( ".J7" ).removeClass("tabla-opacity");
+						    $( ".J7" ).addClass( "success" );
 						    break;
 				    default: alert ( "Error" );
 				}
@@ -156,6 +163,20 @@ $(document).ready(function () {
         color: maroon;
         font-weight: bolder;
     }
+    #map
+    {
+	padding-left: 2px;
+    }
+    #grafica
+    {
+	padding-right: 2px;
+    }
+    .tabla-opacity{
+	opacity: 0.3
+    }
+    .activo{
+	opacity: 1
+    }
 -->
 </style>
 <?php 
@@ -180,5 +201,5 @@ $(document).ready(function () {
 <script src="http://code.highcharts.com/maps/modules/map.js"></script>
 <script src="<?php echo base_url('/js/modules/exporting.js')?>"></script>
 <!--//EL TEMA SE TIENE CARGAR DESPUES DE ESTOS 2 DE ARRIBA -->
-<script src="<?php echo base_url('/js/themes/propio.js') ?>"></script>
+
 
