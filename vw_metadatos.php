@@ -181,17 +181,22 @@ $(document).ready(function () {
 </style>
 <?php 
         echo br(3);
-        echo heading($titulo_rep,2); 
+        echo heading($titulo_rep,2);
+	echo heading($titulo_ind,4);
+	//echo heading($titulo,4);
 ?>
 <div class="container-fluid">
+    <div class="row">
+	<div class="col-xs-12 col-sm-offset-3 col-sm-6">
+	    <?php echo $tabla_ind; ?>
+	</div>
+    </div>
     <div class="row">
 	<div id="grafica" class="col-xs-12 col-sm-6"></div>
 	<div id="map" class="col-xs-12 col-sm-6"></div>
     </div>
 </div>
 <?php
-        echo br();
-        echo $tabla_ind;
         echo br();
         echo $tabla_metas;
         echo br(3);

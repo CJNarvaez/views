@@ -11,14 +11,7 @@
 	// Create the chart
 	$('#chart_div').highcharts({
 	    chart: {
-		type: 'column',
-		events: {
-		    drilldown: function (e) {
-			console.log(this);
-			console.log(this.options.series[0].name);
-			console.log(this.options.series[0].data[0].name);
-		    }
-		}  
+		type: 'column'  
 	    },
 	    title: {
 		text: '<?php echo $reporte->nombre ?>'
@@ -201,7 +194,7 @@
 	    },
 	
 	    title : {
-		text : '<?php echo $reporte->nombre ?>'
+		text : ''
 	    },
 	    subtitle : {
 		text : 'Mapa de Calor'
@@ -266,11 +259,16 @@
 	<h2><strong><?php echo $reporte->nombre ?></strong> <small><?php echo $reporte->mesTxt ?> 2015</small></h2>
 </div>
 
-<!--Div that will hold the pie chart-->
-<div id="chart_div" style="height:300px"></div>
+<div class="col-xs-9">
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div" ></div>
+</div>
 
-<!-- Mapa -->
-<div id="map" style="width:100%; height:400px;"></div>
+<div class="col-xs-3">
+    <!-- Mapa -->
+    <div id="map" ></div>
+</div>
+
 
 <div class="row resultado">
 	<div class="col-xs-12">
