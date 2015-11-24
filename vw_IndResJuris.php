@@ -1,23 +1,19 @@
-<?php //print_r($reporte); ?>
+<?php 
+    $min_estatal = min( $reporte->logroEstatal );
+    $max_estatal = max( $reporte->logroEstatal );
+    $categorias = array( 'J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7' );
+?>
 <script>
     $( document ).ready(function () {
-	
-	Highcharts.setOptions({
-	    lang: {
-		drillUpText: '< {series.name}'
-	    }
-	});
-	
+
 	// Create the chart
 	$('#chart_div').highcharts({
-	    chart: {
-		type: 'column'  
-	    },
 	    title: {
 		text: '<?php echo $reporte->nombre ?>'
 	    },
 	    xAxis: {
-		type: 'category'
+		type: 'category',
+		categories: <?php echo json_encode($categorias) ?>
 	    },
 
 	    legend: {
@@ -26,126 +22,63 @@
 
 	    plotOptions: {
 		series: {
-		    borderWidth: 0,
-		    dataLabels: {
-			enabled: true
+		    cursor: 'pointer',
+		    point: {
+			events: {
+			    click: function () {
+				//console.log( this );
+				switch ( this.category )
+				{
+				    case 'J1': 
+						    $( ".ojo, .fres, .rio, .jal, .tlal, .concha" ).addClass("tabla-opacity");
+						    $( ".zac" ).removeClass("tabla-opacity");
+						    break;
+				    case 'J2': 
+						    $( ".zac, .fres, .rio, .jal, .tlal, .concha" ).addClass("tabla-opacity");
+						    $( ".ojo" ).removeClass("tabla-opacity");
+						    break;
+				    case 'J3': 
+						    $( ".ojo, .zac, .rio, .jal, .tlal, .concha" ).addClass("tabla-opacity");
+						    $( ".fres" ).removeClass("tabla-opacity");
+						    break;
+				    case 'J4': 
+						    $( ".ojo, .fres, .zac, .jal, .tlal, .concha" ).addClass("tabla-opacity");
+						    $( ".rio" ).removeClass("tabla-opacity");
+						    break;
+				    case 'J5': 
+						    $( ".ojo, .fres, .rio, .zac, .tlal, .concha" ).addClass("tabla-opacity");
+						    $( ".jal" ).removeClass("tabla-opacity");
+						    break;
+				    case 'J6': 
+						    $( ".ojo, .fres, .rio, .jal, .zac, .concha" ).addClass("tabla-opacity");
+						    $( ".tlal" ).removeClass("tabla-opacity");
+						    break;
+				    case 'J7': 
+						    $( ".ojo, .fres, .rio, .jal, .tlal, .zac" ).addClass("tabla-opacity");
+						    $( ".concha" ).removeClass("tabla-opacity");
+						    break;
+				    default: alert ( "Error" );
+				}
+			    }
+			}
 		    }
 		}
 	    },
 
 	    series: [{
 		name: 'Total',
-		colorByPoint: true,
-		data: [{
-		    name: 'ZACATECAS',
-		    y: <?php echo number_format($reporte->logroEstatal['01'],2) ?>,
-		    drilldown: 'zac'
-		}, {
-		    name: 'OJOCALIENTE',
-		    y: <?php echo number_format($reporte->logroEstatal['02'],2) ?>,
-		    drilldown: 'ojo'
-		}, {
-		    name: 'FRESNILLO',
-		    y: <?php echo number_format($reporte->logroEstatal['03'],2) ?>,
-		    drilldown: 'fres'
-		}, {
-		    name: 'RIO GRANDE',
-		    y: <?php echo number_format($reporte->logroEstatal['04'],2) ?>,
-		    drilldown: 'rio'
-		}, {
-		    name: 'JALPA',
-		    y: <?php echo number_format($reporte->logroEstatal['05'],2) ?>,
-		    drilldown: 'jalpa'
-		}, {
-		    name: 'TLALTENANGO',
-		    y: <?php echo number_format($reporte->logroEstatal['06'],2) ?>,
-		    drilldown: 'tlalte'
-		}, {
-		    name: 'CONCEPCION DEL ORO',
-		    y: <?php echo number_format($reporte->logroEstatal['07'],2) ?>,
-		    drilldown: 'concha'
-		}]
-	    }],
-	    drilldown: {
-		series: [{
-		    name: 'Logro',
-		    id: 'zac',
-		    data: [
-			<?php 
-			    for ( $i = 1; $i <= sizeof($reporte->tot_mensual['01']); $i++)
+		type: 'column',
+		data: [<?php $contador = 1; 
+			foreach ($reporte->logroEstatal as $logro)
+			{
+			    if( $contador != 8 )
 			    {
-				echo "['".$reporte->meses[$i]."', ".number_format($reporte->tot_mensual['01'][$i],2)."],";
+				echo number_format( $logro,2 ).",";
 			    }
-			?>
-		    ]
-		}, {
-		    name: 'Logro',
-		    id: 'ojo',
-		    data: [
-			<?php 
-			    for ( $i = 1; $i <= sizeof($reporte->tot_mensual['02']); $i++)
-			    {
-				echo "['".$reporte->meses[$i]."', ".number_format($reporte->tot_mensual['02'][$i],2)."],";
-			    }
-			?>
-		    ]
-		}, {
-		    name: 'Logro',
-		    id: 'fres',
-		    data: [
-			<?php 
-			    for ( $i = 1; $i <= sizeof($reporte->tot_mensual['03']); $i++)
-			    {
-				echo "['".$reporte->meses[$i]."', ".number_format($reporte->tot_mensual['03'][$i],2)."],";
-			    }
-			?>
-		    ]
-		}, {
-		    name: 'Logro',
-		    id: 'rio',
-		    data: [
-			<?php 
-			    for ( $i = 1; $i <= sizeof($reporte->tot_mensual['04']); $i++)
-			    {
-				echo "['".$reporte->meses[$i]."', ".number_format($reporte->tot_mensual['04'][$i],2)."],";
-			    }
-			?>
-		    ]
-		}, {
-		    name: 'Logro',
-		    id: 'jalpa',
-		    data: [
-			<?php 
-			    for ( $i = 1; $i <= sizeof($reporte->tot_mensual['05']); $i++)
-			    {
-				echo "['".$reporte->meses[$i]."', ".number_format($reporte->tot_mensual['05'][$i],2)."],";
-			    }
-			?>
-		    ]
-		}, {
-		    name: 'Logro',
-		    id: 'tlalte',
-		    data: [
-			<?php 
-			    for ( $i = 1; $i <= sizeof($reporte->tot_mensual['06']); $i++)
-			    {
-				echo "['".$reporte->meses[$i]."', ".number_format($reporte->tot_mensual['06'][$i],2)."],";
-			    }
-			?>
-		    ]
-		}, {
-		    name: 'Logro',
-		    id: 'concha',
-		    data: [
-			<?php 
-			    for ( $i = 1; $i <= sizeof($reporte->tot_mensual['07']); $i++)
-			    {
-				echo "['".$reporte->meses[$i]."', ".number_format($reporte->tot_mensual['07'][$i],2)."],";
-			    }
-			?>
-		    ]
-		}]
-	    }
+			    $contador++;
+			}
+			?>]
+	    }]
 	});
 	$('#map').highcharts('Map', {
 	
@@ -206,8 +139,8 @@
 		}
 	    },
 	    colorAxis: {
-		min: 4,
-		max: 4.29
+		min: <?php echo number_format($min_estatal,2) ?>,
+		max: <?php echo number_format($max_estatal,2) ?>
 	    },
 	    series: [
 	{
