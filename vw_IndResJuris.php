@@ -493,13 +493,17 @@
     .zac, .ojo, .fres, .rio, .jal, .tlal, .concha{
 	cursor: pointer;
     }
+    .jumbotron
+    {
+	padding: 20px;
+    }
 </style>
 
 <div class="jumbotron text-center resultado">
 	<h2><strong><?php echo $reporte->nombre ?></strong> <small><?php echo $reporte->mesTxt ?> 2015</small></h2>
 </div>
 
-<div class="col-xs-9">
+<div class="col-xs-12 col-sm-9">
     <div class="col-xs-offset-11 col-xs-1">
 	<button id="chart_return" class="btn btn-simple btn-xs">Regresar</button>
     </div>
@@ -507,7 +511,7 @@
     <div id="chart_div" ></div>
 </div>
 
-<div class="col-xs-3">
+<div class="col-xs-12 col-sm-3">
     <!-- Mapa -->
     <div id="map" ></div>
 </div>
@@ -515,22 +519,23 @@
 
 <div class="row resultado">
 	<div class="col-xs-12">
+	    <div class="table-responsive">
 		<table class="table table-hover table-condensed">
 		    <thead>
 		    	<tr class="success">
 			    <th></th>
-			    <th class="zac">ZACATECAS</th>
-			    <th class="ojo">OJOCALIENTE</th>
-			    <th class="fres">FRESNILLO</th>
-			    <th class="rio">RIO GRANDE</th>
-			    <th class="jal">JALPA</th>
-			    <th class="tlal">TLALTENANGO</th>
+			    <th class="zac">ZAC<span class="hidden-xs">ATECAS</span></th>
+			    <th class="ojo">OJO<span class="hidden-xs">CALIENTE</span></th>
+			    <th class="fres">FRES<span class="hidden-xs">NILLO</span></th>
+			    <th class="rio">RIO<span class="hidden-xs"> GRANDE</span></th>
+			    <th class="jal">JAL<span class="hidden-xs">PA</span></th>
+			    <th class="tlal">TLALTE<span class="hidden-xs">NANGO</span></th>
 			    <th class="concha">C. DEL ORO</th>
 			</tr>
 		    </thead>
 		    <tbody>
 			<tr>
-			    <td class="info"><strong>Numerador</strong></td>
+			    <td class="info"><strong>Num<span class="hidden-xs">erador</span></strong></td>
 			    <td class="zac"><?php echo number_format($reporte->num['01']) ?></td>
 			    <td class="ojo"><?php echo number_format($reporte->num['02']) ?></td>
 			    <td class="fres"><?php echo number_format($reporte->num['03']) ?></td>
@@ -540,7 +545,7 @@
 			    <td class="concha"><?php echo number_format($reporte->num['07']) ?></td>
 		        </tr>
 			<tr>
-			    <td class="info"><strong>Denominador</strong></td>
+			    <td class="info"><strong>Den<span class="hidden-xs">ominador</span></strong></td>
 			    <td class="zac"><?php echo number_format($reporte->den['01']) ?></td>
 			    <td class="ojo"><?php echo number_format($reporte->den['02']) ?></td>
 			    <td class="fres"><?php echo number_format($reporte->den['03']) ?></td>
@@ -550,7 +555,7 @@
 			    <td class="concha"><?php echo number_format($reporte->den['07']) ?></td>
 		        </tr>
 		        <tr>
-			    <td class="info"><strong>Resultado</strong></td>
+			    <td class="info"><strong>Res<span class="hidden-xs">ultado</span></strong></td>
 			    <td class="zac"><?php echo number_format($reporte->logroEstatal['01'],2) ?></td>
 			    <td class="ojo"><?php echo number_format($reporte->logroEstatal['02'],2) ?></td>
 			    <td class="fres"><?php echo number_format($reporte->logroEstatal['03'],2) ?></td>
@@ -562,15 +567,12 @@
 		    </tbody>
 		    <tfoot>
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td class="text-right"><h2>ESTATAL: </h2></td>
+					
+					<td colspan="6"><h2 class="text-right">ESTATAL: </h2></td>
 					<td><h2><strong><?php echo number_format($reporte->logroEstatal['estatal'],2) ?></strong></h2></td>
 				</tr>
 			</tfoot>
 		</table>
+	    </div>
 	</div>
 </div>
