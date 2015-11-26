@@ -1,154 +1,281 @@
-<?php //print_r($reporte); ?>
+<?php 
+    $min_estatal = min( $reporte->logroEstatal );
+    $max_estatal = max( $reporte->logroEstatal );
+    $categorias = array( 'J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7' );
+?>
 <script>
     $( document ).ready(function () {
-	
-	Highcharts.setOptions({
-	    lang: {
-		drillUpText: '< {series.name}'
-	    }
+	$( "#chart_return" ).hide();
+	$( "#chart_return" ).click( function(){
+	    chart_return();
+	});
+	$( ".zac" ).click( function(){
+	    zac();
+	    $( ".ojo, .fres, .rio, .jal, .tlal, .concha" ).addClass("tabla-opacity");
+	    $( ".zac" ).removeClass("tabla-opacity");
+	    
+	    limpiar_mapa();
+	    // cambia el color de la juris
+	    $( "#map" ).highcharts().series[0].data[0].options.selected = true;
+	    // actualiza la grafica para que muestre los cambios
+	    $('#map').highcharts().series[0].update({
+                name: 'Promedio'
+            });
+	    
+	});
+	$( ".ojo" ).click( function(){
+	    ojo();
+	    $( ".zac, .fres, .rio, .jal, .tlal, .concha" ).addClass("tabla-opacity");
+	    $( ".ojo" ).removeClass("tabla-opacity");
+	    
+	    limpiar_mapa();
+	    $( "#map" ).highcharts().series[0].data[1].options.selected = true;
+	    $('#map').highcharts().series[0].update({
+                name: 'Promedio'
+            });
+	    
+	});
+	$( ".fres" ).click( function(){
+	    fres();
+	    $( ".zac, .ojo, .rio, .jal, .tlal, .concha" ).addClass("tabla-opacity");
+	    $( ".fres" ).removeClass("tabla-opacity");
+	    
+	    limpiar_mapa();
+	    $( "#map" ).highcharts().series[0].data[2].options.selected = true;
+	    $('#map').highcharts().series[0].update({
+                name: 'Promedio'
+            });
+	    
+	});
+	$( ".rio" ).click( function(){
+	    rio();
+	    $( ".zac, .ojo, .fres, .jal, .tlal, .concha" ).addClass("tabla-opacity");
+	    $( ".rio" ).removeClass("tabla-opacity");
+	    
+	    limpiar_mapa();
+	    $( "#map" ).highcharts().series[0].data[3].options.selected = true;
+	    $('#map').highcharts().series[0].update({
+                name: 'Promedio'
+            });
+	    
+	});
+	$( ".jal" ).click( function(){
+	    jal();
+	    $( ".zac, .ojo, .fres, .rio, .tlal, .concha" ).addClass("tabla-opacity");
+	    $( ".jal" ).removeClass("tabla-opacity");
+	    
+	    limpiar_mapa();
+	    $( "#map" ).highcharts().series[0].data[4].options.selected = true;
+	    $('#map').highcharts().series[0].update({
+                name: 'Promedio'
+            });
+	    
+	});
+	$( ".tlal" ).click( function(){
+	    tlalte();
+	    $( ".zac, .ojo, .fres, .rio, .jal, .concha" ).addClass("tabla-opacity");
+	    $( ".tlal" ).removeClass("tabla-opacity");
+	    
+	    limpiar_mapa();
+	    $( "#map" ).highcharts().series[0].data[5].options.selected = true;
+	    $('#map').highcharts().series[0].update({
+                name: 'Promedio'
+            });
+	    
+	});
+	$( ".concha" ).click( function(){
+	    concha();
+	    $( ".zac, .ojo, .fres, .rio, .jal, .tlal" ).addClass("tabla-opacity");
+	    $( ".concha" ).removeClass("tabla-opacity");
+	    
+	    limpiar_mapa();
+	    $( "#map" ).highcharts().series[0].data[6].options.selected = true;
+	    $('#map').highcharts().series[0].update({
+                name: 'Promedio'
+            });
+	    
 	});
 	
-	// Create the chart
+	grafica();
+	mapa();
+    });
+    
+    function chart_return(){
+	$( "#chart_return" ).hide();
+	$( ".zac, .ojo, .fres, .rio, .jal, .tlal, .concha" ).removeClass("tabla-opacity");
+	grafica();
+	
+	limpiar_mapa();
+	$('#map').highcharts().series[0].update({
+	    name: 'Promedio'
+	});
+    }
+    
+    function zac(){
+	$( '#chart_return' ).show();
 	$('#chart_div').highcharts({
-	    chart: {
-		type: 'column'  
-	    },
 	    title: {
-		text: '<?php echo $reporte->nombre ?>'
+		text: '<?php echo $reporte->nombre." ZACATECAS" ?>'
 	    },
 	    xAxis: {
-		type: 'category'
+		categories: ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC']
 	    },
-
-	    legend: {
-		enabled: false
-	    },
-
-	    plotOptions: {
-		series: {
-		    borderWidth: 0,
-		    dataLabels: {
-			enabled: true
-		    }
-		}
-	    },
-
 	    series: [{
-		name: 'Total',
-		colorByPoint: true,
-		data: [{
-		    name: 'ZACATECAS',
-		    y: <?php echo number_format($reporte->logroEstatal['01'],2) ?>,
-		    drilldown: 'zac'
-		}, {
-		    name: 'OJOCALIENTE',
-		    y: <?php echo number_format($reporte->logroEstatal['02'],2) ?>,
-		    drilldown: 'ojo'
-		}, {
-		    name: 'FRESNILLO',
-		    y: <?php echo number_format($reporte->logroEstatal['03'],2) ?>,
-		    drilldown: 'fres'
-		}, {
-		    name: 'RIO GRANDE',
-		    y: <?php echo number_format($reporte->logroEstatal['04'],2) ?>,
-		    drilldown: 'rio'
-		}, {
-		    name: 'JALPA',
-		    y: <?php echo number_format($reporte->logroEstatal['05'],2) ?>,
-		    drilldown: 'jalpa'
-		}, {
-		    name: 'TLALTENANGO',
-		    y: <?php echo number_format($reporte->logroEstatal['06'],2) ?>,
-		    drilldown: 'tlalte'
-		}, {
-		    name: 'CONCEPCION DEL ORO',
-		    y: <?php echo number_format($reporte->logroEstatal['07'],2) ?>,
-		    drilldown: 'concha'
-		}]
-	    }],
-	    drilldown: {
-		series: [{
-		    name: 'Logro',
-		    id: 'zac',
-		    data: [
-			<?php 
-			    for ( $i = 1; $i <= sizeof($reporte->tot_mensual['01']); $i++)
+		data: [<?php foreach($reporte->tot_mensual['01'] as $dato_mes)
 			    {
-				echo "['".$reporte->meses[$i]."', ".number_format($reporte->tot_mensual['01'][$i],2)."],";
-			    }
-			?>
-		    ]
-		}, {
-		    name: 'Logro',
-		    id: 'ojo',
-		    data: [
-			<?php 
-			    for ( $i = 1; $i <= sizeof($reporte->tot_mensual['02']); $i++)
-			    {
-				echo "['".$reporte->meses[$i]."', ".number_format($reporte->tot_mensual['02'][$i],2)."],";
-			    }
-			?>
-		    ]
-		}, {
-		    name: 'Logro',
-		    id: 'fres',
-		    data: [
-			<?php 
-			    for ( $i = 1; $i <= sizeof($reporte->tot_mensual['03']); $i++)
-			    {
-				echo "['".$reporte->meses[$i]."', ".number_format($reporte->tot_mensual['03'][$i],2)."],";
-			    }
-			?>
-		    ]
-		}, {
-		    name: 'Logro',
-		    id: 'rio',
-		    data: [
-			<?php 
-			    for ( $i = 1; $i <= sizeof($reporte->tot_mensual['04']); $i++)
-			    {
-				echo "['".$reporte->meses[$i]."', ".number_format($reporte->tot_mensual['04'][$i],2)."],";
-			    }
-			?>
-		    ]
-		}, {
-		    name: 'Logro',
-		    id: 'jalpa',
-		    data: [
-			<?php 
-			    for ( $i = 1; $i <= sizeof($reporte->tot_mensual['05']); $i++)
-			    {
-				echo "['".$reporte->meses[$i]."', ".number_format($reporte->tot_mensual['05'][$i],2)."],";
-			    }
-			?>
-		    ]
-		}, {
-		    name: 'Logro',
-		    id: 'tlalte',
-		    data: [
-			<?php 
-			    for ( $i = 1; $i <= sizeof($reporte->tot_mensual['06']); $i++)
-			    {
-				echo "['".$reporte->meses[$i]."', ".number_format($reporte->tot_mensual['06'][$i],2)."],";
-			    }
-			?>
-		    ]
-		}, {
-		    name: 'Logro',
-		    id: 'concha',
-		    data: [
-			<?php 
-			    for ( $i = 1; $i <= sizeof($reporte->tot_mensual['07']); $i++)
-			    {
-				echo "['".$reporte->meses[$i]."', ".number_format($reporte->tot_mensual['07'][$i],2)."],";
-			    }
-			?>
-		    ]
-		}]
-	    }
+				echo number_format($dato_mes,2).",";
+			    } ?>]
+	    }]
 	});
-	$('#map').highcharts('Map', {
 	
+	//actualiza mapa
+	limpiar_mapa();
+	$( "#map" ).highcharts().series[0].data[0].options.selected = true;
+	$('#map').highcharts().series[0].update({
+	    name: 'Promedio'
+	});
+    };
+    function ojo(){
+	$( '#chart_return' ).show();
+	$('#chart_div').highcharts({
+	    title: {
+		text: '<?php echo $reporte->nombre." OJOCALIENTE" ?>'
+	    },
+	    xAxis: {
+		categories: ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC']
+	    },
+	    series: [{
+		data: [<?php foreach($reporte->tot_mensual['02'] as $dato_mes)
+			    {
+				echo number_format($dato_mes,2).",";
+			    } ?>]
+	    }]
+	});
+	
+	//actualiza mapa
+	limpiar_mapa();
+	$( "#map" ).highcharts().series[0].data[1].options.selected = true;
+	$('#map').highcharts().series[0].update({
+	    name: 'Promedio'
+	});
+    };
+    function fres(){
+	$( '#chart_return' ).show();
+	$('#chart_div').highcharts({
+	    title: {
+		text: '<?php echo $reporte->nombre." FRESNILLO" ?>'
+	    },
+	    xAxis: {
+		categories: ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC']
+	    },
+	    series: [{
+		data: [<?php foreach($reporte->tot_mensual['03'] as $dato_mes)
+			    {
+				echo number_format($dato_mes,2).",";
+			    } ?>]
+	    }]
+	});
+	//actualiza mapa
+	limpiar_mapa();
+	$( "#map" ).highcharts().series[0].data[2].options.selected = true;
+	$('#map').highcharts().series[0].update({
+	    name: 'Promedio'
+	});
+    };
+    function rio(){
+	$( '#chart_return' ).show();
+	$('#chart_div').highcharts({
+	    title: {
+		text: '<?php echo $reporte->nombre." RIO GRANDE" ?>'
+	    },
+	    xAxis: {
+		categories: ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC']
+	    },
+	    series: [{
+		data: [<?php foreach($reporte->tot_mensual['04'] as $dato_mes)
+			    {
+				echo number_format($dato_mes,2).",";
+			    } ?>]
+	    }]
+	});
+	//actualiza mapa
+	limpiar_mapa();
+	$( "#map" ).highcharts().series[0].data[3].options.selected = true;
+	$('#map').highcharts().series[0].update({
+	    name: 'Promedio'
+	});
+    };
+    function jal(){
+	$( '#chart_return' ).show();
+	$('#chart_div').highcharts({
+	    title: {
+		text: '<?php echo $reporte->nombre." JALPA" ?>'
+	    },
+	    xAxis: {
+		categories: ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC']
+	    },
+	    series: [{
+		data: [<?php foreach($reporte->tot_mensual['05'] as $dato_mes)
+			    {
+				echo number_format($dato_mes,2).",";
+			    } ?>]
+	    }]
+	});
+	//actualiza mapa
+	limpiar_mapa();
+	$( "#map" ).highcharts().series[0].data[4].options.selected = true;
+	$('#map').highcharts().series[0].update({
+	    name: 'Promedio'
+	});
+    };
+    function tlalte(){
+	$( '#chart_return' ).show();
+	$('#chart_div').highcharts({
+	    title: {
+		text: '<?php echo $reporte->nombre." TLALTENANGO" ?>'
+	    },
+	    xAxis: {
+		categories: ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC']
+	    },
+	    series: [{
+		data: [<?php foreach($reporte->tot_mensual['06'] as $dato_mes)
+			    {
+				echo number_format($dato_mes,2).",";
+			    } ?>]
+	    }]
+	});
+	//actualiza mapa
+	limpiar_mapa();
+	$( "#map" ).highcharts().series[0].data[5].options.selected = true;
+	$('#map').highcharts().series[0].update({
+	    name: 'Promedio'
+	});
+    };
+    function concha(){
+	$( '#chart_return' ).show();
+	$('#chart_div').highcharts({
+	    title: {
+		text: '<?php echo $reporte->nombre." C. DEL ORO" ?>'
+	    },
+	    xAxis: {
+		categories: ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC']
+	    },
+	    series: [{
+		data: [<?php foreach($reporte->tot_mensual['07'] as $dato_mes)
+			    {
+				echo number_format($dato_mes,2).",";
+			    } ?>]
+	    }]
+	});
+	//actualiza mapa
+	limpiar_mapa();
+	$( "#map" ).highcharts().series[0].data[6].options.selected = true;
+	$('#map').highcharts().series[0].update({
+	    name: 'Promedio'
+	});
+    };
+    function mapa(){
+	$('#map').highcharts('Map', {
 	    plotOptions: {
 		series: {
 		    cursor: 'pointer',
@@ -160,30 +287,37 @@
 				    case 'Zacatecas': 
 						    $( ".ojo, .fres, .rio, .jal, .tlal, .concha" ).addClass("tabla-opacity");
 						    $( ".zac" ).removeClass("tabla-opacity");
+						    zac();
 						    break;
 				    case 'Ojocaliente': 
 						    $( ".zac, .fres, .rio, .jal, .tlal, .concha" ).addClass("tabla-opacity");
 						    $( ".ojo" ).removeClass("tabla-opacity");
+						    ojo();
 						    break;
 				    case 'Fresnillo': 
 						    $( ".ojo, .zac, .rio, .jal, .tlal, .concha" ).addClass("tabla-opacity");
 						    $( ".fres" ).removeClass("tabla-opacity");
+						    fres();
 						    break;
 				    case 'Rio Grande': 
 						    $( ".ojo, .fres, .zac, .jal, .tlal, .concha" ).addClass("tabla-opacity");
 						    $( ".rio" ).removeClass("tabla-opacity");
+						    rio();
 						    break;
 				    case 'Jalpa': 
 						    $( ".ojo, .fres, .rio, .zac, .tlal, .concha" ).addClass("tabla-opacity");
 						    $( ".jal" ).removeClass("tabla-opacity");
+						    jal();
 						    break;
 				    case 'Tlaltenango': 
 						    $( ".ojo, .fres, .rio, .jal, .zac, .concha" ).addClass("tabla-opacity");
 						    $( ".tlal" ).removeClass("tabla-opacity");
+						    tlalte();
 						    break;
 				    case 'Concepcion del Oro': 
 						    $( ".ojo, .fres, .rio, .jal, .tlal, .zac" ).addClass("tabla-opacity");
 						    $( ".concha" ).removeClass("tabla-opacity");
+						    concha();
 						    break;
 				    default: alert ( "Error" );
 				}
@@ -206,11 +340,22 @@
 		}
 	    },
 	    colorAxis: {
-		min: 4,
-		max: 4.29
+		min: <?php echo number_format($min_estatal,2) ?>,
+		max: <?php echo number_format($max_estatal,2) ?>
 	    },
 	    series: [
 	{
+	    "allowPointSelect": true,
+	    "states": {
+                    hover: {
+                        color: 'white'
+                    },
+                    select: {
+                        color: 'darkred',
+                        borderColor: 'red',
+			borderWith: '50',
+                    }
+                },
 		"type": "map",
 		"data": [
 			{
@@ -252,19 +397,121 @@
 	}
 ]
 	});
-    });
+    }
+    function grafica(){
+	// Create the chart
+	$('#chart_div').highcharts({
+	    title: {
+		text: '<?php echo $reporte->nombre ?>'
+	    },
+	    xAxis: {
+		type: 'category',
+		categories: <?php echo json_encode($categorias) ?>
+	    },
+
+	    legend: {
+		enabled: false
+	    },
+
+	    plotOptions: {
+		series: {
+		    cursor: 'pointer',
+		    point: {
+			events: {
+			    click: function () {
+				//console.log( this );
+				switch ( this.category )
+				{
+				    case 'J1': 
+						    $( ".ojo, .fres, .rio, .jal, .tlal, .concha" ).addClass("tabla-opacity");
+						    $( ".zac" ).removeClass("tabla-opacity");
+						    zac();
+						    break;
+				    case 'J2': 
+						    $( ".zac, .fres, .rio, .jal, .tlal, .concha" ).addClass("tabla-opacity");
+						    $( ".ojo" ).removeClass("tabla-opacity");
+						    ojo();
+						    break;
+				    case 'J3': 
+						    $( ".ojo, .zac, .rio, .jal, .tlal, .concha" ).addClass("tabla-opacity");
+						    $( ".fres" ).removeClass("tabla-opacity");
+						    fres();
+						    break;
+				    case 'J4': 
+						    $( ".ojo, .fres, .zac, .jal, .tlal, .concha" ).addClass("tabla-opacity");
+						    $( ".rio" ).removeClass("tabla-opacity");
+						    rio();
+						    break;
+				    case 'J5': 
+						    $( ".ojo, .fres, .rio, .zac, .tlal, .concha" ).addClass("tabla-opacity");
+						    $( ".jal" ).removeClass("tabla-opacity");
+						    jal();
+						    break;
+				    case 'J6': 
+						    $( ".ojo, .fres, .rio, .jal, .zac, .concha" ).addClass("tabla-opacity");
+						    $( ".tlal" ).removeClass("tabla-opacity");
+						    tlalte();
+						    break;
+				    case 'J7': 
+						    $( ".ojo, .fres, .rio, .jal, .tlal, .zac" ).addClass("tabla-opacity");
+						    $( ".concha" ).removeClass("tabla-opacity");
+						    concha();
+						    break;
+				    default: alert ( "Error" );
+				}
+			    }
+			}
+		    }
+		}
+	    },
+
+	    series: [{
+		name: 'Total',
+		type: 'column',
+		data: [<?php $contador = 1; 
+			foreach ($reporte->logroEstatal as $logro)
+			{
+			    if( $contador != 8 )
+			    {
+				echo number_format( $logro,2 ).",";
+			    }
+			    $contador++;
+			}
+			?>]
+	    }]
+	});
+    }
+    function limpiar_mapa()
+    {
+	for( i = 0; i <= 6; i++ )
+	{
+	    $( "#map" ).highcharts().series[0].data[i].options.selected = false;
+	}
+    }
 </script>
+<style>
+    .zac, .ojo, .fres, .rio, .jal, .tlal, .concha{
+	cursor: pointer;
+    }
+    .jumbotron
+    {
+	padding: 20px;
+    }
+</style>
 
 <div class="jumbotron text-center resultado">
 	<h2><strong><?php echo $reporte->nombre ?></strong> <small><?php echo $reporte->mesTxt ?> 2015</small></h2>
 </div>
 
-<div class="col-xs-9">
-    <!--Div that will hold the pie chart-->
+<div class="col-xs-12 col-sm-9">
+    <div class="col-xs-offset-11 col-xs-1">
+	<button id="chart_return" class="btn btn-simple btn-xs">Regresar</button>
+    </div>
+    <!--Div that will hold the chart-->
     <div id="chart_div" ></div>
 </div>
 
-<div class="col-xs-3">
+<div class="col-xs-12 col-sm-3">
     <!-- Mapa -->
     <div id="map" ></div>
 </div>
@@ -272,22 +519,23 @@
 
 <div class="row resultado">
 	<div class="col-xs-12">
+	    <div class="table-responsive">
 		<table class="table table-hover table-condensed">
 		    <thead>
 		    	<tr class="success">
 			    <th></th>
-			    <th class="zac">ZACATECAS</th>
-			    <th class="ojo">OJOCALIENTE</th>
-			    <th class="fres">FRESNILLO</th>
-			    <th class="rio">RIO GRANDE</th>
-			    <th class="jal">JALPA</th>
-			    <th class="tlal">TLALTENANGO</th>
-			    <th class="concha">CONCEPCION DEL ORO</th>
+			    <th class="zac">ZAC<span class="hidden-xs">ATECAS</span></th>
+			    <th class="ojo">OJO<span class="hidden-xs">CALIENTE</span></th>
+			    <th class="fres">FRES<span class="hidden-xs">NILLO</span></th>
+			    <th class="rio">RIO<span class="hidden-xs"> GRANDE</span></th>
+			    <th class="jal">JAL<span class="hidden-xs">PA</span></th>
+			    <th class="tlal">TLALTE<span class="hidden-xs">NANGO</span></th>
+			    <th class="concha">C. DEL ORO</th>
 			</tr>
 		    </thead>
 		    <tbody>
 			<tr>
-			    <td class="info"><strong>Numerador</strong></td>
+			    <td class="info"><strong>Num<span class="hidden-xs">erador</span></strong></td>
 			    <td class="zac"><?php echo number_format($reporte->num['01']) ?></td>
 			    <td class="ojo"><?php echo number_format($reporte->num['02']) ?></td>
 			    <td class="fres"><?php echo number_format($reporte->num['03']) ?></td>
@@ -297,7 +545,7 @@
 			    <td class="concha"><?php echo number_format($reporte->num['07']) ?></td>
 		        </tr>
 			<tr>
-			    <td class="info"><strong>Denominador</strong></td>
+			    <td class="info"><strong>Den<span class="hidden-xs">ominador</span></strong></td>
 			    <td class="zac"><?php echo number_format($reporte->den['01']) ?></td>
 			    <td class="ojo"><?php echo number_format($reporte->den['02']) ?></td>
 			    <td class="fres"><?php echo number_format($reporte->den['03']) ?></td>
@@ -307,7 +555,7 @@
 			    <td class="concha"><?php echo number_format($reporte->den['07']) ?></td>
 		        </tr>
 		        <tr>
-			    <td class="info"><strong>Resultado</strong></td>
+			    <td class="info"><strong>Res<span class="hidden-xs">ultado</span></strong></td>
 			    <td class="zac"><?php echo number_format($reporte->logroEstatal['01'],2) ?></td>
 			    <td class="ojo"><?php echo number_format($reporte->logroEstatal['02'],2) ?></td>
 			    <td class="fres"><?php echo number_format($reporte->logroEstatal['03'],2) ?></td>
@@ -319,15 +567,12 @@
 		    </tbody>
 		    <tfoot>
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td class="text-right"><h2>ESTATAL: </h2></td>
+					
+					<td colspan="6"><h2 class="text-right">ESTATAL: </h2></td>
 					<td><h2><strong><?php echo number_format($reporte->logroEstatal['estatal'],2) ?></strong></h2></td>
 				</tr>
 			</tfoot>
 		</table>
+	    </div>
 	</div>
 </div>

@@ -23,7 +23,7 @@
     //MENU
     $pagina->menu_genera('Evaluación','Menú Principal');
 ?>
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
         <div class="col-sm-12">
 	    <br /><br /><br />
@@ -33,41 +33,91 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12">
+	<!-- Para menu mayor a sm  -->
+        <div class="hidden-xs col-md-10">
 	  <h3>Indicadores</h3>
-	  <div class="btn-group btn-group-justified btn-group-sm">
+	  <div class="btn-group btn-group-justified btn-group-xs">
             <a class="btn btn-success ind" role="button" data-nombre="nac_xCesarea">Nac x Cesarea</a> 
             <a class="btn btn-success ind" role="button" data-nombre="consPren">Cons Prenatales</a> 
             <a class="btn btn-success ind" role="button" data-nombre="usuAct">Usuarias Activas</a>
-            <a class="btn btn-success ind" role="button" data-nombre="morbTbPulmonar">Morbilidad T.B. Pulmonar</a>
-	    <a class="btn btn-success ind" role="button" data-nombre="nuevosTbTaesTerm">Nvos T.B. TAES Term</a>
-	    <a class="btn btn-success ind" role="button" data-nombre="morbGonorrea">Morbilidad por Gonorrea</a>
-            <a class="btn btn-success ind" role="button" data-nombre="casosNuevosSifilis">Casos Nuevos Sifilis</a>
-	  </div>
-	  <div class="btn-group btn-group-justified btn-group-sm">
             <a class="btn btn-success ind" role="button" data-nombre="morbSida">Morbilidad por SIDA</a>
-            <a class="btn btn-success ind" role="button" data-nombre="casosNuevosDM">Casos Nuevos Diabetes</a>
+	    <a class="btn btn-success ind" role="button" data-nombre="nuevosTbTaesTerm">Nvos T.B. TAES Term</a>
+	  </div>
+	  <div class="btn-group btn-group-justified btn-group-xs">
 	    <a class="btn btn-success ind" role="button" data-nombre="promConsMed">Consulta X Medico</a>
-            <a class="btn btn-success ind" role="button" data-nombre="porcOcuHosp">Ocupacion Hospitalaria</a>
+            <a class="btn btn-success ind" role="button" data-nombre="casosNuevosSifilis">Casos Nuevos Sifilis</a>
+	    <a class="btn btn-success ind" role="button" data-nombre="morbTbPulmonar">Morbilidad T.B. Pulmonar</a>            
+            <a class="btn btn-success ind" role="button" data-nombre="casosNuevosDM">Casos Nuevos Diabetes</a>
+	    <a class="btn btn-success ind" role="button" data-nombre="morbGonorrea">Morbilidad por Gonorrea</a>	    
+            
+	  </div>
+	  <div class="btn-group btn-group-justified btn-group-xs">
+	      <a class="btn btn-success ind" role="button" data-nombre="porcOcuHosp">Ocupacion Hospitalaria</a>
 	    <a class="btn btn-success ind" role="button" data-nombre="promDiasEst">Promedio Dias Estancia</a>
             <a class="btn btn-success ind" role="button" data-nombre="interQuir">Prom. Int. Quir. x Quirofano</a>
 	  </div>
+	</div>
+	 <div class="hidden-xs col-md-2">
 	  <h3>Meses</h3>
           <div class="btn-group btn-group-justified btn-group-xs" role="group">
             <a class="btn btn-danger meses" role="button" data-nombre="01">ENE</a> 
             <a class="btn btn-danger meses" role="button" data-nombre="02">FEB</a> 
             <a class="btn btn-danger meses" role="button" data-nombre="03">MAR</a> 
             <a class="btn btn-danger meses" role="button" data-nombre="04">ABR</a>
-            <a class="btn btn-danger meses" role="button" data-nombre="05">MAY</a> 
-            <a class="btn btn-danger meses" role="button" data-nombre="06">JUN</a> 
+             
+          </div>
+	  <div class="btn-group btn-group-justified btn-group-xs" role="group">
+	    <a class="btn btn-danger meses" role="button" data-nombre="05">MAY</a> 
+            <a class="btn btn-danger meses" role="button" data-nombre="06">JUN</a>
             <a class="btn btn-danger meses" role="button" data-nombre="07">JUL</a> 
             <a class="btn btn-danger meses" role="button" data-nombre="08">AGO</a>
-            <a class="btn btn-danger meses" role="button" data-nombre="09">SEP</a>
+            
+          </div>
+	  <div class="btn-group btn-group-justified btn-group-xs" role="group">
+	    <a class="btn btn-danger meses" role="button" data-nombre="09">SEP</a>
             <a class="btn btn-danger meses" role="button" data-nombre="10">OCT</a>
             <a class="btn btn-danger meses" role="button" data-nombre="11">NOV</a>
             <a class="btn btn-danger meses" role="button" data-nombre="12">DIC</a>
-          </div>
-        </div>        
+	  </div>
+        </div>
+	
+	<!-- Para menu menor o igual a sm  -->
+        <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
+	  <h3>Indicadores</h3>
+	  <div class="btn-group btn-group-vertical btn-group-xs btn-block" role="group">
+	    <a class="btn btn-success ind" role="button" data-nombre="nac_xCesarea">Nac x Cesarea</a> 
+            <a class="btn btn-success ind" role="button" data-nombre="consPren">Cons Prenatales</a> 
+            <a class="btn btn-success ind" role="button" data-nombre="usuAct">Usuarias Activas</a>
+            <a class="btn btn-success ind" role="button" data-nombre="morbSida">Morbilidad por SIDA</a>
+	    <a class="btn btn-success ind" role="button" data-nombre="nuevosTbTaesTerm">Nvos T.B. TAES Term</a>
+	    <a class="btn btn-success ind" role="button" data-nombre="promConsMed">Consulta X Medico</a>
+            <a class="btn btn-success ind" role="button" data-nombre="casosNuevosSifilis">Casos Nuevos Sifilis</a>
+	    <a class="btn btn-success ind" role="button" data-nombre="morbTbPulmonar">Morbilidad T.B. Pulmonar</a>            
+            <a class="btn btn-success ind" role="button" data-nombre="casosNuevosDM">Casos Nuevos Diabetes</a>
+	    <a class="btn btn-success ind" role="button" data-nombre="morbGonorrea">Morbilidad por Gonorrea</a>	    
+	    <a class="btn btn-success ind" role="button" data-nombre="porcOcuHosp">Ocupacion Hospitalaria</a>
+	    <a class="btn btn-success ind" role="button" data-nombre="promDiasEst">Promedio Dias Estancia</a>
+            <a class="btn btn-success ind" role="button" data-nombre="interQuir">Prom. Int. Quir. x Quirofano</a>
+	  </div>	  
+	</div>
+	<div class="col-xs-12 hidden-sm hidden-md hidden-lg">
+	  <h3>Meses</h3>
+          <div class="btn-group btn-group-vertical btn-group-xs btn-block" role="group">
+            <a class="btn btn-danger meses" role="button" data-nombre="01">ENE</a> 
+            <a class="btn btn-danger meses" role="button" data-nombre="02">FEB</a> 
+            <a class="btn btn-danger meses" role="button" data-nombre="03">MAR</a> 
+            <a class="btn btn-danger meses" role="button" data-nombre="04">ABR</a>
+	    <a class="btn btn-danger meses" role="button" data-nombre="05">MAY</a> 
+            <a class="btn btn-danger meses" role="button" data-nombre="06">JUN</a>
+            <a class="btn btn-danger meses" role="button" data-nombre="07">JUL</a> 
+            <a class="btn btn-danger meses" role="button" data-nombre="08">AGO</a>
+	    <a class="btn btn-danger meses" role="button" data-nombre="09">SEP</a>
+            <a class="btn btn-danger meses" role="button" data-nombre="10">OCT</a>
+            <a class="btn btn-danger meses" role="button" data-nombre="11">NOV</a>
+            <a class="btn btn-danger meses" role="button" data-nombre="12">DIC</a>
+	  </div>
+        </div>
+	
       </div>
       <div class="row">
         
