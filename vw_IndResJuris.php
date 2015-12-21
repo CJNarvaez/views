@@ -5,6 +5,11 @@
 ?>
 <script>
     $( document ).ready(function () {
+	//colores de las graficas
+	Highcharts.setOptions({
+        colors: ['#00370D', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+    });
+    
 	$( "#chart_return" ).hide();
 	$( "#chart_return" ).click( function(){
 	    chart_return();
@@ -341,7 +346,8 @@
 	    },
 	    colorAxis: {
 		min: <?php echo number_format($min_estatal,2) ?>,
-		max: <?php echo number_format($max_estatal,2) ?>
+		max: <?php echo number_format($max_estatal,2) ?>,
+		maxColor: '#00370D'
 	    },
 	    series: [
 	{

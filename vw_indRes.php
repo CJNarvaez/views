@@ -55,6 +55,7 @@
 	      <a class="btn btn-success ind" role="button" data-nombre="porcOcuHosp">Ocupacion Hospitalaria</a>
 	    <a class="btn btn-success ind" role="button" data-nombre="promDiasEst">Promedio Dias Estancia</a>
             <a class="btn btn-success ind" role="button" data-nombre="interQuir">Prom. Int. Quir. x Quirofano</a>
+            <a class="btn btn-success ind" role="button" data-nombre="casosNuevosHA">Casos Nuevos Hipertension</a>
 	  </div>
 	</div>
 	 <div class="hidden-xs col-md-2">
@@ -98,6 +99,7 @@
 	    <a class="btn btn-success ind" role="button" data-nombre="porcOcuHosp">Ocupacion Hospitalaria</a>
 	    <a class="btn btn-success ind" role="button" data-nombre="promDiasEst">Promedio Dias Estancia</a>
             <a class="btn btn-success ind" role="button" data-nombre="interQuir">Prom. Int. Quir. x Quirofano</a>
+            <a class="btn btn-success ind" role="button" data-nombre="casosNuevosHA">Casos Nuevos Hipertension</a>
 	  </div>	  
 	</div>
 	<div class="col-xs-12 hidden-sm hidden-md hidden-lg">
@@ -129,14 +131,14 @@
         </div>
       </div>
       <br />
-      <div class="row">
+  <!--    <div class="row">
         <div class="col-xs-12">
           <div class="alert alert-dismissable alert-info">         
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             <h4>Información</h4>Selecciona un mes
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <?php include "inc/footer_common.php" ?>

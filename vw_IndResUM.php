@@ -179,6 +179,7 @@
 		    <tbody>
 			<tr>
 			    <td class="info"><strong>Numerador</strong></td>
+			    <?php if (isset($completo))	echo "<td>". number_format($reporte->num[259]) ."</td>"?>
 			    <td><?php echo number_format($reporte->num[13]) ?></td>
 			    <td><?php echo number_format($reporte->num[231]) ?></td>
 			    <td><?php echo number_format($reporte->num[57]) ?></td>
@@ -186,6 +187,7 @@
 			</tr>
 			<tr>
 			    <td class="info"><strong>Denominador</strong></td>
+			    <?php if (isset($completo))	echo "<td>". number_format($reporte->den[259]) ."</td>"?>
 			    <td><?php echo number_format($reporte->den[13]) ?></td>
 			    <td><?php echo number_format($reporte->den[231]) ?></td>
 			    <td><?php echo number_format($reporte->den[57]) ?></td>
